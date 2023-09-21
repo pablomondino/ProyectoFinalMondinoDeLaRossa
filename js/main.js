@@ -18,6 +18,37 @@ const tipoDeLotesDisponibles = [
   { tipologia: "d", tamano: 560, frente: 16, fondo: 35, ubicacion: "Dentro de manzana", img: "550metros.png" }];
 
 
+//agregar funcion en js(para carrito)
+
+// Función para agregar un lote al carrito
+function agregarAlCarrito(lote) {
+  objetosSeleccionados.push(lote);
+
+  // Actualiza la lista en el carrito
+  const listaCarrito = document.getElementById('lista-carrito');
+  const li = document.createElement('li');
+  li.textContent = `${lote.tipologia} - Precio: $${lote.tamano * 1000}`;
+  listaCarrito.appendChild(li);
+}
+
+// Función para mostrar el carrito en el HTML
+function mostrarCarrito() {
+  const carrito = document.getElementById('carrito');
+  carrito.style.display = 'block';
+}
+
+
+
+
+
+
+// fin funcion agregada
+
+
+
+
+
+
 
 function buscarServicio(arr, filtro) {
   const encontrado = arr.find((el) => {
@@ -81,8 +112,8 @@ function crearHtml(arr) {
     contenedor.innerHTML = contenedor.innerHTML + html;
   }
 }
-
-//nueva funcion agregada
+/*
+//nueva funcion agregada para seleccionar objeto
 function elegirObjeto(id) {
   // Encuentra el objeto correspondiente en el array de tipoDeLotesDisponibles
   const objetoSeleccionado = tipoDeLotesDisponibles.find(objeto => objeto.frente === id);
@@ -93,12 +124,39 @@ function elegirObjeto(id) {
   // Puedes mostrar los objetos seleccionados en la consola si lo deseas
   console.log("Objetos Seleccionados:", objetosSeleccionados);
 }
-
-
-
-
-
 //---------------------
+*/
+// modificacion de la funcion para que ademas de seleccionar y lo agregue a 
+//elementos seleccionado lo ponga tambien en el carrito
+function elegirObjeto(id) {
+  const objetoSeleccionado = tipoDeLotesDisponibles.find(objeto => objeto.frente === id);
+
+  objetosSeleccionados.push(objetoSeleccionado);
+
+  // Agrega el objeto seleccionado al carrito
+  agregarAlCarrito(objetoSeleccionado);
+
+  // Muestra el carrito
+  mostrarCarrito();
+
+  // Puedes mostrar los objetos seleccionados en la consola si lo deseas
+  console.log("Objetos Seleccionados:", objetosSeleccionados);
+}
+
+
+// fin del agregado
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
