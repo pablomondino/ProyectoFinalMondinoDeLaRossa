@@ -136,3 +136,11 @@ img {
     color: #fff;
     padding: 20px;
 }
+.btn-eliminar {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  

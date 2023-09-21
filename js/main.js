@@ -21,6 +21,7 @@ const tipoDeLotesDisponibles = [
 //agregar funcion en js(para carrito)
 
 // Función para agregar un lote al carrito
+/*
 function agregarAlCarrito(lote) {
   objetosSeleccionados.push(lote);
 
@@ -36,13 +37,63 @@ function mostrarCarrito() {
   const carrito = document.getElementById('carrito');
   carrito.style.display = 'block';
 }
-
-
-
-
-
+*/
 
 // fin funcion agregada
+
+//funcion modifica  para agregar boton rojo eliminar
+function agregarAlCarrito(lote) {
+  objetosSeleccionados.push(lote);
+
+  // Actualiza la lista en el carrito
+  const listaCarrito = document.getElementById('lista-carrito');
+  const li = document.createElement('li');
+  li.textContent = `${lote.tipologia} - Precio: $${lote.tamano * 1000}`;
+
+  // Agrega el botón de eliminar
+  const botonEliminar = document.createElement('button');
+  botonEliminar.textContent = 'Eliminar';
+  botonEliminar.className = 'btn-eliminar';
+  botonEliminar.onclick = () => eliminarDelCarrito(lote);
+
+  li.appendChild(botonEliminar);
+  listaCarrito.appendChild(li);
+}
+
+
+//---------------------
+//inicio funcion eliminar del carrito y de obj seleccion
+function eliminarDelCarrito(lote) {
+  // Elimina el elemento del carrito
+  const listaCarrito = document.getElementById('lista-carrito');
+  const elementosCarrito = listaCarrito.getElementsByTagName('li');
+
+  for (let i = 0; i < elementosCarrito.length; i++) {
+    const elemento = elementosCarrito[i];
+    if (elemento.textContent.includes(lote.tipologia)) {
+      listaCarrito.removeChild(elemento);
+      break; // Sale del bucle una vez que se elimina el elemento
+    }
+  }
+
+  // Elimina el objeto de la lista de objetos seleccionados
+  const index = objetosSeleccionados.indexOf(lote);
+  if (index !== -1) {
+    objetosSeleccionados.splice(index, 1);
+  }
+
+  // Si no quedan elementos en el carrito, oculta el carrito
+  if (objetosSeleccionados.length === 0) {
+    const carrito = document.getElementById('carrito');
+    carrito.style.display = 'none';
+  }
+}
+
+
+
+
+//fin de funcion eliminar del carrito y de obj seleccion
+
 
 
 
