@@ -143,4 +143,9 @@ img {
     padding: 5px 10px;
     cursor: pointer;
   }
-  
+  .total-carrito {
+    background-color: #f0f0f0; /* Color de fondo sombreado */
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+  }

@@ -4,7 +4,7 @@ const btnSearch = document.querySelector("#btnSearch");
 const inputIngreso = document.querySelector("#ingreso");
 const contenedor = document.querySelector("#contenedor");
 const infoLoteDiv = document.querySelector("#infoLote"); // Agrega un div para mostrar la información del lote
-
+let importeTotal = 0;
 // agregado
 const objetosSeleccionados = [];
 
@@ -18,30 +18,7 @@ const tipoDeLotesDisponibles = [
   { tipologia: "d", tamano: 560, frente: 16, fondo: 35, ubicacion: "Dentro de manzana", img: "550metros.png" }];
 
 
-//agregar funcion en js(para carrito)
 
-// Función para agregar un lote al carrito
-/*
-function agregarAlCarrito(lote) {
-  objetosSeleccionados.push(lote);
-
-  // Actualiza la lista en el carrito
-  const listaCarrito = document.getElementById('lista-carrito');
-  const li = document.createElement('li');
-  li.textContent = `${lote.tipologia} - Precio: $${lote.tamano * 1000}`;
-  listaCarrito.appendChild(li);
-}
-
-// Función para mostrar el carrito en el HTML
-function mostrarCarrito() {
-  const carrito = document.getElementById('carrito');
-  carrito.style.display = 'block';
-}
-*/
-
-// fin funcion agregada
-
-//funcion modifica  para agregar boton rojo eliminar
 function agregarAlCarrito(lote) {
   objetosSeleccionados.push(lote);
 
@@ -58,11 +35,17 @@ function agregarAlCarrito(lote) {
 
   li.appendChild(botonEliminar);
   listaCarrito.appendChild(li);
+  //modifico importe total 
+
+  // Actualiza el importe total
+  importeTotal += lote.tamano * 1000;
+  const importeTotalSpan = document.getElementById('importe-total');
+  importeTotalSpan.textContent = importeTotal;
+
+  mostrarCarrito(); // Llama a la función después de agregar un objeto
 }
 
 
-//---------------------
-//inicio funcion eliminar del carrito y de obj seleccion
 function eliminarDelCarrito(lote) {
   // Elimina el elemento del carrito
   const listaCarrito = document.getElementById('lista-carrito');
@@ -75,6 +58,14 @@ function eliminarDelCarrito(lote) {
       break; // Sale del bucle una vez que se elimina el elemento
     }
   }
+  //agrego esto a la funcion
+  // Resta el precio del lote eliminado del importe total
+  importeTotal -= lote.tamano * 1000;
+
+  // Actualiza el importe total en el HTML
+  const importeTotalSpan = document.getElementById('importe-total');
+  importeTotalSpan.textContent = importeTotal;
+
 
   // Elimina el objeto de la lista de objetos seleccionados
   const index = objetosSeleccionados.indexOf(lote);
@@ -87,18 +78,25 @@ function eliminarDelCarrito(lote) {
     const carrito = document.getElementById('carrito');
     carrito.style.display = 'none';
   }
+  mostrarCarrito(); // Llama a la función después de eliminar un objeto
 }
 
 
+// funcion para mostrar carrito cuando tiene elementos sino nó
 
+function mostrarCarrito() {
+  const carrito = document.getElementById('carrito');
+  carrito.style.display = objetosSeleccionados.length > 0 ? 'block' : 'none';
 
-//fin de funcion eliminar del carrito y de obj seleccion
-
-
-
-
-
-
+  // Si hay al menos un objeto en el carrito, muestra el total
+  if (objetosSeleccionados.length > 0) {
+    carrito.style.display = 'block';
+    importeTotalDiv.style.display = 'block';
+  } else {
+    carrito.style.display = 'none';
+    importeTotalDiv.style.display = 'none';
+  }
+}
 
 
 function buscarServicio(arr, filtro) {
@@ -110,14 +108,8 @@ function buscarServicio(arr, filtro) {
 
 
 function mostrarLotes(arr) {
-  
- arr.forEach((element) => {console.log(element)  });
- /*
-  const muestra = arr.map(element => {
-    return element;
-  });
-  */
-  //return muestra;
+
+  arr.forEach((element) => { console.log(element) });
   return arr;// ojo el return array debe ir al +último
 
 }
@@ -137,17 +129,6 @@ function crearHtml(arr) {
 
 
 
-    /*
-    html = `<div class="card">
-    <img src=" ./img/${el.img}" alt="${el.tipologia}"> 
-                <hr>
-                <h3>${el.ubicacion}</h3>
-                <p>Precio: $${el.tamano * 1000} </p>
-                  <div class="card-action">
-                    <button class="btn btn-delete" id="${el.frente}">elegir</button>
-                  </div>
-              </div>`;
-     */
     html = `<div class="card">
     <img src="./img/${el.img}" alt="${el.tipologia}"> 
     <hr>
@@ -157,7 +138,7 @@ function crearHtml(arr) {
       <button class="btn btn-delete" id="${el.frente}" onclick="elegirObjeto(${el.frente})">Elegir</button>
     </div>
   </div>`;
-            
+
 
     //se la agrego al contenedor
     contenedor.innerHTML = contenedor.innerHTML + html;
@@ -220,7 +201,7 @@ btnSearch.addEventListener("click", (e) => {
 
 ingreso1.addEventListener("click", (e) => {
   const mostrados = mostrarLotes(tipoDeLotesDisponibles);
-  
+
   crearHtml(mostrados);
 });
 
