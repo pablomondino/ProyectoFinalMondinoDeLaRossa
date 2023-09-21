@@ -85,6 +85,12 @@ function eliminarDelCarrito(lote) {
 // funcion para mostrar carrito cuando tiene elementos sino nó
 
 function mostrarCarrito() {
+ // agrego estotrabajo 7
+ const btnVerFinanciamiento = document.querySelector("#btnVerFinanciamiento");
+ btnVerFinanciamiento.style.display = objetosSeleccionados.length > 0 ? "block" : "none";
+    //trabajo 7
+
+
   const carrito = document.getElementById('carrito');
   carrito.style.display = objetosSeleccionados.length > 0 ? 'block' : 'none';
 
@@ -96,6 +102,9 @@ function mostrarCarrito() {
     carrito.style.display = 'none';
     importeTotalDiv.style.display = 'none';
   }
+
+ 
+  
 }
 
 
@@ -219,6 +228,29 @@ btnSearch.addEventListener("click", (e) => {
   }
 });
 
+// agrego estos eventos  trabajo 7
+
+// Agregar evento al botón "Ver Forma de Financiar"
+const btnVerFinanciamiento = document.querySelector("#btnVerFinanciamiento");
+btnVerFinanciamiento.addEventListener("click", () => {
+  const financiamientoDiv = document.querySelector("#financiamiento");
+  financiamientoDiv.style.display = "block";
+});
+
+// Agregar evento al botón "Calcular"
+const btnCalcularFinanciamiento = document.querySelector("#calcularFinanciamiento");
+btnCalcularFinanciamiento.addEventListener("click", calcularFinanciamiento);
+
+//-fin trabajo 7--------------
+
+
+
+
+
+
+
+
+
 // Función para mostrar la información de un lote en el div infoLote
 function mostrarInformacionLote(lote) {
   const html = `
@@ -240,7 +272,25 @@ function mostrarInformacionLote(lote) {
   infoLoteDiv.innerHTML = html;
 }
 
+// trabajo 7 agrego est0
+function calcularFinanciamiento() {
+  const entregaInicial = parseFloat(document.querySelector("#entregaInicial").value);
+  if (isNaN(entregaInicial)) {
+    alert("Por favor, ingrese una entrega inicial válida.");
+    return;
+  }
 
+  const saldoFinanciar = importeTotal - entregaInicial;
+  const cantidadCuotas = 12; // Número de cuotas fijas (puedes ajustarlo según tus necesidades)
+  const valorCuota = saldoFinanciar / cantidadCuotas;
+
+  // Actualiza los valores en el HTML
+  document.querySelector("#saldoFinanciar").textContent = `$${saldoFinanciar.toFixed(2)}`;
+  document.querySelector("#cantidadCuotas").textContent = cantidadCuotas;
+  document.querySelector("#valorCuota").textContent = `$${valorCuota.toFixed(2)}`;
+}
+
+// fin trabajo 7
 const user = { nickname: "pablo", pass: 1234 };
 
 const inputUser = document.querySelector("#user"),
@@ -274,6 +324,5 @@ formulario.addEventListener("submit", (e) => {
   }
   check.checked ? guardar("localStorage") : guardar("sessionStorage");
 });
-
 
 
