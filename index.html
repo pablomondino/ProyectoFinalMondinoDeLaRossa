@@ -25,74 +25,28 @@
   <hr />
 
   <main>
-    <!--aqui agrego carrito-->
 
-    <div id="carrito" class="carrito">
-      <h2>Carrito de Compras</h2>
-      <ul id="lista-carrito">
-        <!-- Aquí se mostrarán los lotes seleccionados -->
-      </ul>
-    </div>
-    
-    <!--linea total de compras-->
-    <div id="total-carrito" class="total-carrito">
-      Importe Total: $<span id="importe-total">0</span>
-    </div>
-    
-    <!-- fin carrito-->
-    <!--agregadoen trabajo 7-->
-    <button id="btnVerFinanciamiento" style="display: none;">Ver Forma de Financiar</button>
-
-    <!--div de financiamiento   trabajo 7-->
-    <div id="financiamiento" style="display: none;">
-      <!--<div id="financiamiento" >-->
- 
-      <h3>Forma de Financiar</h3>
-      <label for="entregaInicial">Entrega Inicial:</label>
-      <input type="number" id="entregaInicial" placeholder="Ingrese la entrega inicial">
-      
-      <button id="calcularFinanciamiento">Calcular</button>
-      <p>Saldo a financiar: <span id="saldoFinanciar"></span></p>
-      <p>Cantidad de Cuotas: <span id="cantidadCuotas"></span></p>
-      <p>Valor de Cuota: <span id="valorCuota"></span></p>
-    </div>
-    
-
-
-
-
-
-    
     <button id="ingreso1" class="btn btn-search ">Mostrar todos los lotes disponibles</button>
+    
     <br><br>
-    <label for="ingreso"> Buscar lote segun tipologia a b c d</label>
-    <input type="text" name="ingreso" id="ingreso" autofocus />
+    <!--nuevo-->
+   <!-- Agregar el botón de "Recordar Selección" -->
+<button id="btnRecordarSeleccion" class="btn btn-recordar">Recordar Selección</button>
+   <!--nuevo-->
+   
+    
 
 
-    <button id="btnSearch" class="btn btn-search">buscar</button>
   
     <div id="contenedor" class="contenedor">
       <!-- contenido dinámico -->
     </div>
     
     <div id="infoLote"  class="card"></div> 
-
-
+    <label for="ingreso"> Buscar lote segun tipologia a b c d</label>
+    <input type="text" name="ingreso" id="ingreso" autofocus />
+    <button id="btnSearch" class="btn btn-search">buscar</button>
     
-
-    <h2> Ingreso </h2>
-    <form id="form-login">
-      <input type="text" placeholder="Usuario" id="user" />
-      <input type="password" placeholder="Password" id="pass" />
-      <div class="check">
-        <label for="check">Recordar</label>
-        <input type="checkbox" id="check" />
-        <p id="message"></p>
-      </div>
-      <input type="submit" class="btn btn-login" value="Ingresar" />
-    </form>
-
-
 
 
 

@@ -1,112 +1,77 @@
-let pin = "1234";
-let ingresar = false;
+
+
 const btnSearch = document.querySelector("#btnSearch");
 const inputIngreso = document.querySelector("#ingreso");
 const contenedor = document.querySelector("#contenedor");
 const infoLoteDiv = document.querySelector("#infoLote"); // Agrega un div para mostrar la información del lote
-let importeTotal = 0;
-// agregado
 const objetosSeleccionados = [];
+
+//*****************
+fetch('./data/data.json') // Ajusta la ruta del archivo JSON según la estructura de tu proyecto
+  .then(response => response.json())
+  .then(datos => {
+    // Aquí puedes utilizar los datos cargados desde el archivo JSON
+    console.log(datos);
+    // Por ejemplo, podrías asignar los datos a la variable tipoDeLotesDisponibles
+    tipoDeLotesDisponibles = datos;
+    // Luego, puedes mostrar todos los lotes o realizar otras operaciones con los datos cargados
+    mostrarTodosLosLotes();
+  })
+  .catch(error => {
+    console.error('Error al cargar los datos desde el archivo JSON:', error);
+  });
+
+
+//******************/
+
+
+
+
+//----nuevo
+function recordarSeleccion(lote) {
+  // Guarda el lote seleccionado en el localStorage como un objeto JSON
+  localStorage.setItem("loteSeleccionado", JSON.stringify(lote));
+
+  // Muestra un mensaje de confirmación
+  alert("Selección de lote recordada.");
+}
+
+//-------
+
+
+///-----
+window.addEventListener("load", () => {
+  const loteGuardado = localStorage.getItem("loteSeleccionado");
+
+  if (loteGuardado) {
+    const lote = JSON.parse(loteGuardado);
+    alert("Lote seleccionado anteriormente: " + lote.tipologia);
+
+    // Puedes utilizar la función mostrarInformacionLote para mostrar la selección guardada
+    mostrarInformacionLote(lote);
+  }
+});
+
+//------
+
+
+
+
+
+
+// agregado
+
 
 
 ingresar = true;
-
+/*
 const tipoDeLotesDisponibles = [
   { tipologia: "a", tamano: 250, frente: 10, fondo: 25, ubicacion: "Esquina de manzana", img: "250metros.png" },
   { tipologia: "b", tamano: 360, frente: 12, fondo: 30, ubicacion: "Dentro de manzana", img: "350metros.png" },
   { tipologia: "c", tamano: 450, frente: 15, fondo: 30, ubicacion: "Dentro de manzana", img: "450metros.png" },
   { tipologia: "d", tamano: 560, frente: 16, fondo: 35, ubicacion: "Dentro de manzana", img: "550metros.png" }];
 
-
-
-function agregarAlCarrito(lote) {
-  objetosSeleccionados.push(lote);
-
-  // Actualiza la lista en el carrito
-  const listaCarrito = document.getElementById('lista-carrito');
-  const li = document.createElement('li');
-  li.textContent = `${lote.tipologia} - Precio: $${lote.tamano * 1000}`;
-
-  // Agrega el botón de eliminar
-  const botonEliminar = document.createElement('button');
-  botonEliminar.textContent = 'Eliminar';
-  botonEliminar.className = 'btn-eliminar';
-  botonEliminar.onclick = () => eliminarDelCarrito(lote);
-
-  li.appendChild(botonEliminar);
-  listaCarrito.appendChild(li);
-  //modifico importe total 
-
-  // Actualiza el importe total
-  importeTotal += lote.tamano * 1000;
-  const importeTotalSpan = document.getElementById('importe-total');
-  importeTotalSpan.textContent = importeTotal;
-
-  mostrarCarrito(); // Llama a la función después de agregar un objeto
-}
-
-
-function eliminarDelCarrito(lote) {
-  // Elimina el elemento del carrito
-  const listaCarrito = document.getElementById('lista-carrito');
-  const elementosCarrito = listaCarrito.getElementsByTagName('li');
-
-  for (let i = 0; i < elementosCarrito.length; i++) {
-    const elemento = elementosCarrito[i];
-    if (elemento.textContent.includes(lote.tipologia)) {
-      listaCarrito.removeChild(elemento);
-      break; // Sale del bucle una vez que se elimina el elemento
-    }
-  }
-  //agrego esto a la funcion
-  // Resta el precio del lote eliminado del importe total
-  importeTotal -= lote.tamano * 1000;
-
-  // Actualiza el importe total en el HTML
-  const importeTotalSpan = document.getElementById('importe-total');
-  importeTotalSpan.textContent = importeTotal;
-
-
-  // Elimina el objeto de la lista de objetos seleccionados
-  const index = objetosSeleccionados.indexOf(lote);
-  if (index !== -1) {
-    objetosSeleccionados.splice(index, 1);
-  }
-
-  // Si no quedan elementos en el carrito, oculta el carrito
-  if (objetosSeleccionados.length === 0) {
-    const carrito = document.getElementById('carrito');
-    carrito.style.display = 'none';
-  }
-  mostrarCarrito(); // Llama a la función después de eliminar un objeto
-}
-
-
-// funcion para mostrar carrito cuando tiene elementos sino nó
-
-function mostrarCarrito() {
- // agrego estotrabajo 7
- const btnVerFinanciamiento = document.querySelector("#btnVerFinanciamiento");
- btnVerFinanciamiento.style.display = objetosSeleccionados.length > 0 ? "block" : "none";
-    //trabajo 7
-
-
-  const carrito = document.getElementById('carrito');
-  carrito.style.display = objetosSeleccionados.length > 0 ? 'block' : 'none';
-
-  // Si hay al menos un objeto en el carrito, muestra el total
-  if (objetosSeleccionados.length > 0) {
-    carrito.style.display = 'block';
-    importeTotalDiv.style.display = 'block';
-  } else {
-    carrito.style.display = 'none';
-    importeTotalDiv.style.display = 'none';
-  }
-
- 
-  
-}
-
+*/
 
 function buscarServicio(arr, filtro) {
   const encontrado = arr.find((el) => {
@@ -119,6 +84,7 @@ function buscarServicio(arr, filtro) {
 function mostrarLotes(arr) {
 
   arr.forEach((element) => { console.log(element) });
+
   return arr;// ojo el return array debe ir al +último
 
 }
@@ -138,6 +104,7 @@ function crearHtml(arr) {
 
 
 
+
     html = `<div class="card">
     <img src="./img/${el.img}" alt="${el.tipologia}"> 
     <hr>
@@ -153,51 +120,20 @@ function crearHtml(arr) {
     contenedor.innerHTML = contenedor.innerHTML + html;
   }
 }
-/*
-//nueva funcion agregada para seleccionar objeto
-function elegirObjeto(id) {
-  // Encuentra el objeto correspondiente en el array de tipoDeLotesDisponibles
-  const objetoSeleccionado = tipoDeLotesDisponibles.find(objeto => objeto.frente === id);
-
-  // Agrega el objeto seleccionado al array objetosSeleccionados
-  objetosSeleccionados.push(objetoSeleccionado);
-
-  // Puedes mostrar los objetos seleccionados en la consola si lo deseas
-  console.log("Objetos Seleccionados:", objetosSeleccionados);
-}
-//---------------------
-*/
-// modificacion de la funcion para que ademas de seleccionar y lo agregue a 
-//elementos seleccionado lo ponga tambien en el carrito
 function elegirObjeto(id) {
   const objetoSeleccionado = tipoDeLotesDisponibles.find(objeto => objeto.frente === id);
-
   objetosSeleccionados.push(objetoSeleccionado);
-
-  // Agrega el objeto seleccionado al carrito
-  agregarAlCarrito(objetoSeleccionado);
-
-  // Muestra el carrito
-  mostrarCarrito();
-
-  // Puedes mostrar los objetos seleccionados en la consola si lo deseas
   console.log("Objetos Seleccionados:", objetosSeleccionados);
+
+  // Llama a la función para mostrar la información del lote seleccionado
+  mostrarInformacionLote(objetoSeleccionado);
 }
 
-
-// fin del agregado
-
-
-
-
-
-
-
-
-
-
-
-
+function mostrarTodosLosLotes() {
+  // Llama a la función para crear el HTML con todos los lotes disponibles
+  crearHtml(tipoDeLotesDisponibles);
+}
+document.querySelector("#ingreso1").addEventListener("click", mostrarTodosLosLotes);
 
 
 
@@ -228,22 +164,26 @@ btnSearch.addEventListener("click", (e) => {
   }
 });
 
-// agrego estos eventos  trabajo 7
+//-------
+// Definir otras funciones y lógica de tu aplicación
 
-// Agregar evento al botón "Ver Forma de Financiar"
-const btnVerFinanciamiento = document.querySelector("#btnVerFinanciamiento");
-btnVerFinanciamiento.addEventListener("click", () => {
-  const financiamientoDiv = document.querySelector("#financiamiento");
-  financiamientoDiv.style.display = "block";
+// Agregar el evento al botón "Recordar Selección"
+const btnRecordarSeleccion = document.querySelector("#btnRecordarSeleccion");
+btnRecordarSeleccion.addEventListener("click", () => {
+  const loteSeleccionado = objetosSeleccionados[objetosSeleccionados.length - 1];
+  if (loteSeleccionado) {
+    recordarSeleccion(loteSeleccionado);
+  } else {
+    alert("No has seleccionado un lote para recordar.");
+  }
 });
 
-// Agregar evento al botón "Calcular"
-const btnCalcularFinanciamiento = document.querySelector("#calcularFinanciamiento");
-btnCalcularFinanciamiento.addEventListener("click", calcularFinanciamiento);
-
-//-fin trabajo 7--------------
 
 
+
+
+
+//------
 
 
 
@@ -269,60 +209,26 @@ function mostrarInformacionLote(lote) {
     </div>
   `;
 
-  infoLoteDiv.innerHTML = html;
+    infoLoteDiv.innerHTML = html;
+    //--nuevo
+    // Agrega un event listener al botón de recordar selección
+    const btnRecordarSeleccion = document.querySelector("#btnRecordarSeleccion");
+    btnRecordarSeleccion.addEventListener("click", () => {
+      recordarSeleccion(lote);
+    });
+
+
+
+    //---------
+
+
+
 }
-
-// trabajo 7 agrego est0
-function calcularFinanciamiento() {
-  const entregaInicial = parseFloat(document.querySelector("#entregaInicial").value);
-  if (isNaN(entregaInicial)) {
-    alert("Por favor, ingrese una entrega inicial válida.");
-    return;
-  }
-
-  const saldoFinanciar = importeTotal - entregaInicial;
-  const cantidadCuotas = 12; // Número de cuotas fijas (puedes ajustarlo según tus necesidades)
-  const valorCuota = saldoFinanciar / cantidadCuotas;
-
-  // Actualiza los valores en el HTML
-  document.querySelector("#saldoFinanciar").textContent = `$${saldoFinanciar.toFixed(2)}`;
-  document.querySelector("#cantidadCuotas").textContent = cantidadCuotas;
-  document.querySelector("#valorCuota").textContent = `$${valorCuota.toFixed(2)}`;
-}
-
-// fin trabajo 7
-const user = { nickname: "pablo", pass: 1234 };
-
-const inputUser = document.querySelector("#user"),
-  inputPass = document.querySelector("#pass"),
-  check = document.querySelector("#check"),
-  formulario = document.querySelector("#form-login"),
-  message = document.querySelector("#message");
-
-function guardar(valor) {
-  const user = { usuario: inputUser.value, pass: inputPass.value };
-  //validar que los campos no esten vacios
-  if (valor === "localStorage") {
-    localStorage.setItem("user", JSON.stringify(user));
-  }
-  if (valor === "sessionStorage") {
-    sessionStorage.setItem("user", JSON.stringify(user));
-  }
-  valor === "localStorage" &&
-    localStorage.setItem("user", JSON.stringify(user));
-  valor === "sessionStorage" &&
-    sessionStorage.setItem("user", JSON.stringify(user));
-}
-
-//agrego esto mas
-formulario.addEventListener("submit", (e) => {
-  e.preventDefault();
-  if (check.checked) {
-    guardar("localStorage");
-  } else {
-    guardar("sessionStorage");
-  }
-  check.checked ? guardar("localStorage") : guardar("sessionStorage");
-});
-
-
+/*
+fetch('./data/data.json')
+.then(response=>response.json())
+.then(datos=>{
+  console.log(datos);
+  //renderServicios(datos)
+})
+*/

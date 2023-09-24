@@ -1,0 +1,34 @@
+[
+    {
+       "tipologia":"a",
+       "tamano":250,
+       "frente":10,
+       "fondo":25,
+       "ubicacion":"Esquina de manzana",
+       "img":"250metros.png"
+    },
+    {
+       "tipologia":"b",
+       "tamano":360,
+       "frente":12,
+       "fondo":30,
+       "ubicacion":"Dentro de manzana",
+       "img":"350metros.png"
+    },
+    {
+       "tipologia":"c",
+       "tamano":450,
+       "frente":15,
+       "fondo":30,
+       "ubicacion":"Dentro de manzana",
+       "img":"450metros.png"
+    },
+    {
+       "tipologia":"d",
+       "tamano":560,
+       "frente":16,
+       "fondo":35,
+       "ubicacion":"Dentro de manzana",
+       "img":"550metros.png"
+    }
+ ]
