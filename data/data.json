@@ -13,7 +13,7 @@
        "frente":12,
        "fondo":30,
        "ubicacion":"Dentro de manzana",
-       "img":"350metros.png"
+       "img":"360metros.png"
     },
     {
        "tipologia":"c",
@@ -29,6 +29,6 @@
        "frente":16,
        "fondo":35,
        "ubicacion":"Dentro de manzana",
-       "img":"550metros.png"
+       "img":"560metros.png"
     }
  ]

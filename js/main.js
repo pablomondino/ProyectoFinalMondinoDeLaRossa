@@ -3,18 +3,15 @@
 const btnSearch = document.querySelector("#btnSearch");
 const inputIngreso = document.querySelector("#ingreso");
 const contenedor = document.querySelector("#contenedor");
-const infoLoteDiv = document.querySelector("#infoLote"); // Agrega un div para mostrar la información del lote
+const infoLoteDiv = document.querySelector("#infoLote");
 const objetosSeleccionados = [];
 
-//*****************
-fetch('./data/data.json') // Ajusta la ruta del archivo JSON según la estructura de tu proyecto
+
+fetch('./data/data.json')
   .then(response => response.json())
   .then(datos => {
-    // Aquí puedes utilizar los datos cargados desde el archivo JSON
     console.log(datos);
-    // Por ejemplo, podrías asignar los datos a la variable tipoDeLotesDisponibles
     tipoDeLotesDisponibles = datos;
-    // Luego, puedes mostrar todos los lotes o realizar otras operaciones con los datos cargados
     mostrarTodosLosLotes();
   })
   .catch(error => {
@@ -22,48 +19,27 @@ fetch('./data/data.json') // Ajusta la ruta del archivo JSON según la estructur
   });
 
 
-//******************/
-
-
-
-
-//----nuevo
 function recordarSeleccion(lote) {
   // Guarda el lote seleccionado en el localStorage como un objeto JSON
   localStorage.setItem("loteSeleccionado", JSON.stringify(lote));
 
-  // Muestra un mensaje de confirmación
-  alert("Selección de lote recordada.");
+  // Muestrar  mensaje de confirmación
+ // alert("Selección de lote recordada.");
 }
 
-//-------
 
-
-///-----
 window.addEventListener("load", () => {
   const loteGuardado = localStorage.getItem("loteSeleccionado");
 
   if (loteGuardado) {
     const lote = JSON.parse(loteGuardado);
-    alert("Lote seleccionado anteriormente: " + lote.tipologia);
+    //alert("Lote seleccionado anteriormente: " + lote.tipologia);
 
-    // Puedes utilizar la función mostrarInformacionLote para mostrar la selección guardada
     mostrarInformacionLote(lote);
   }
 });
 
-//------
 
-
-
-
-
-
-// agregado
-
-
-
-ingresar = true;
 /*
 const tipoDeLotesDisponibles = [
   { tipologia: "a", tamano: 250, frente: 10, fondo: 25, ubicacion: "Esquina de manzana", img: "250metros.png" },
@@ -80,7 +56,6 @@ function buscarServicio(arr, filtro) {
   return encontrado;
 }
 
-
 function mostrarLotes(arr) {
 
   arr.forEach((element) => { console.log(element) });
@@ -88,7 +63,6 @@ function mostrarLotes(arr) {
   return arr;// ojo el return array debe ir al +último
 
 }
-
 
 function filtrarServicio(arr, filtro) {
   const filtrado = arr.filter((el) => {
@@ -120,38 +94,32 @@ function crearHtml(arr) {
     contenedor.innerHTML = contenedor.innerHTML + html;
   }
 }
+
 function elegirObjeto(id) {
   const objetoSeleccionado = tipoDeLotesDisponibles.find(objeto => objeto.frente === id);
   objetosSeleccionados.push(objetoSeleccionado);
   console.log("Objetos Seleccionados:", objetosSeleccionados);
 
-  // Llama a la función para mostrar la información del lote seleccionado
+  // Llamo a la función para mostrar la información del lote seleccionado
   mostrarInformacionLote(objetoSeleccionado);
 }
 
 function mostrarTodosLosLotes() {
-  // Llama a la función para crear el HTML con todos los lotes disponibles
+  // aca llamo a la función para crear el HTML con todos los lotes disponibles
   crearHtml(tipoDeLotesDisponibles);
 }
 document.querySelector("#ingreso1").addEventListener("click", mostrarTodosLosLotes);
-
-
-
 
 btnSearch.addEventListener("click", (e) => {
   const filtrados = filtrarServicio(tipoDeLotesDisponibles, inputIngreso.value);
   crearHtml(filtrados);
 });
 
-
 ingreso1.addEventListener("click", (e) => {
   const mostrados = mostrarLotes(tipoDeLotesDisponibles);
 
   crearHtml(mostrados);
 });
-
-
-
 
 btnSearch.addEventListener("click", (e) => {
   const tipologiaBuscada = inputIngreso.value.toLowerCase(); // Convierte la entrada a minúsculas
@@ -164,10 +132,6 @@ btnSearch.addEventListener("click", (e) => {
   }
 });
 
-//-------
-// Definir otras funciones y lógica de tu aplicación
-
-// Agregar el evento al botón "Recordar Selección"
 const btnRecordarSeleccion = document.querySelector("#btnRecordarSeleccion");
 btnRecordarSeleccion.addEventListener("click", () => {
   const loteSeleccionado = objetosSeleccionados[objetosSeleccionados.length - 1];
@@ -178,20 +142,7 @@ btnRecordarSeleccion.addEventListener("click", () => {
   }
 });
 
-
-
-
-
-
-//------
-
-
-
-
-
-
-
-// Función para mostrar la información de un lote en el div infoLote
+// Muestra la información de un lote en el div infoLote
 function mostrarInformacionLote(lote) {
   const html = `
     <div class="info-lote">
@@ -209,26 +160,11 @@ function mostrarInformacionLote(lote) {
     </div>
   `;
 
-    infoLoteDiv.innerHTML = html;
-    //--nuevo
-    // Agrega un event listener al botón de recordar selección
-    const btnRecordarSeleccion = document.querySelector("#btnRecordarSeleccion");
-    btnRecordarSeleccion.addEventListener("click", () => {
-      recordarSeleccion(lote);
-    });
-
-
-
-    //---------
-
-
-
+  infoLoteDiv.innerHTML = html;
+  //--nuevo
+  // Agrega un event listener al botón de recordar selección
+  const btnRecordarSeleccion = document.querySelector("#btnRecordarSeleccion");
+  btnRecordarSeleccion.addEventListener("click", () => {
+    recordarSeleccion(lote);
+  });
 }
-/*
-fetch('./data/data.json')
-.then(response=>response.json())
-.then(datos=>{
-  console.log(datos);
-  //renderServicios(datos)
-})
-*/

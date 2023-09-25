@@ -55,7 +55,7 @@ form input {
 }
 
 .btn {
-    width:250px;
+    width:200px;
     height: 30px;
     border: none;
     background-color: transparent;
@@ -64,7 +64,7 @@ form input {
     text-transform: capitalize;
 }
 
-.btn-search, .btn-buscar {
+.btn-search, .btn-buscar , .btn-recordar{
     background-color: rgb(68, 209, 68);
     width: 300px;
 }
